@@ -16,10 +16,12 @@ public class SplashFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, 
 	        ViewGroup container, Bundle savedInstanceState) {
 	    View view = inflater.inflate(R.layout.splash, 
-	            container, false);
-	    
+	            container, false); 
 	    LoginButton login = (LoginButton) view.findViewById(R.id.login_button);
 	    login.setReadPermissions(Arrays.asList("user_friends"));
 	    return view;
 	}
+	
+	
+	
 }
