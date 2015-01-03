@@ -166,7 +166,7 @@ public class MainActivity extends FragmentActivity {
 		showFragment(SETTINGS, true);
 	}
 	
-	
+	// Settings for display contacts method 
 	private ArrayList<String> userContactsNumbers = new ArrayList<String>();
 	private ArrayList<String> userContactsNames = new ArrayList<String>();
 	private ArrayList<String> dummyPhoneNums = new ArrayList<String>();
