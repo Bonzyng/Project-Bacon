@@ -177,7 +177,7 @@ public class MainActivity extends FragmentActivity {
 		this.dummyPhoneNums.add("099602709");
 	}
 	
-	protected void displayContacts() {
+	public void displayContacts() {
 		//int i = 0; //counter
 		//TextView tv = (TextView) findViewById(R.id.tv);
 		ContentResolver cr = getContentResolver();
@@ -190,34 +190,34 @@ public class MainActivity extends FragmentActivity {
 			String name = cur.getString(cur.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
 			if (Integer.parseInt(cur.getString(
 					cur.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
-				Cursor pCur = cr.query(
-						ContactsContract.CommonDataKinds.Phone.CONTENT_URI, 
-						null, 
-						ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = ?", 
-								new String[]{id}, null);
-				while (pCur.moveToNext()) {
-					String phoneNo = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-					
-					phoneNo = phoneNo.replaceAll("-", "");
-					// removes dummy phone numbers 
-					if (phoneNo.length() < 9) {
-						continue;
-					}
-					phoneNo = phoneNo.substring((phoneNo.length()-9), phoneNo.length());
-					
-					
-					//Sending the numbers and Names to dummy Arrays
-					userContactsNames.add(name);
-					userContactsNumbers.add(phoneNo);
-				} 
-				pCur.close();
+					Cursor pCur = cr.query(
+							ContactsContract.CommonDataKinds.Phone.CONTENT_URI, 
+							null, 
+							ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = ?", 
+									new String[]{id}, null);
+					while (pCur.moveToNext()) {
+						String phoneNo = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+						
+						phoneNo = phoneNo.replaceAll("-", "");
+						// removes dummy phone numbers 
+						if (phoneNo.length() < 9) {
+							continue;
+						}
+						phoneNo = phoneNo.substring((phoneNo.length()-9), phoneNo.length());
+						
+						
+						//Sending the numbers and Names to dummy Arrays
+						userContactsNames.add(name);
+						userContactsNumbers.add(phoneNo);
+					} 
+					pCur.close();
 			//	i++;
 
+				}
 			}
 		}
-	}
 		CreateDummyArray(); //creates a dummy array to do some matching - need to erase that
-}
+	}
 	
 	
 	
