@@ -10,16 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:gravity="center_horizontal"
-        android:orientation="horizontal" >
-        
-        <ImageView
-            android:id="@+id/splash_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:gravity="center"
-            android:src="@drawable/icon" />
+        android:orientation="horizontal" >    
         
         <TextView 
             android:layout_width="wrap_content"
@@ -30,7 +21,7 @@
             android:textSize="28sp"
             android:typeface="serif"
             android:textStyle="italic"
-            android:text="@string/app_name" />
+            android:text="@string/temp_app_name" />
     </LinearLayout>
     
     <TextView 
@@ -51,5 +42,14 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="30dp" />
+    
+    <ImageView
+        android:id="@+id/splash_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:gravity="center_horizontal"
+        android:src="@drawable/icon" />
 
 </LinearLayout>
