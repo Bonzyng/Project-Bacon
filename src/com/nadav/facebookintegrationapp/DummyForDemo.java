@@ -15,6 +15,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+/*
+ * TODO: Remove this activity.
+ */
 public class DummyForDemo extends ActionBarActivity {
 
 	@Override

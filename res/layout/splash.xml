@@ -35,12 +35,18 @@
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal" />
     
+    <!--  
+    We can change the text and style of the login button!
+    -->
     <com.facebook.widget.LoginButton
+        xmlns:fb="http://schemas.android.com/apk/res-auto"
         android:id="@+id/login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
+        fb:login_text="Login!"
+        fb:logout_text="Logout!"
         android:layout_marginBottom="30dp" />
     
     <ImageView

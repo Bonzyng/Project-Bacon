@@ -26,6 +26,10 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.widget.Toast;
 
+/*
+ * TODO: Remove this activity. No need for it. Scan button should launch the compare +
+ * new activity that will show the results.
+ */
 public class PickerActivity extends FragmentActivity {
 	private static final String TAG = "PickerActivity";
 	

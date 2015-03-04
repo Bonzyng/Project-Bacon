@@ -25,6 +25,9 @@ import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.ProfilePictureView;
 
+/*
+ * TODO: Turn this into the main app screen, with the scan button and everything.
+ */
 public class SelectionFragment extends Fragment {
 	private static final String TAG = "SelectionFragment";
 	
