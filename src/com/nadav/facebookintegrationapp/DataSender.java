@@ -25,7 +25,9 @@ public class DataSender extends AsyncTask<Void, Void, Boolean> {
 	private ProgressDialog dialog;
 
 	// url to update user status
-	private final String url = "http://liron.milab.idc.ac.il/php/bacon_send_phonenumber.php";
+	private final String urlSendPhoneNumber = "http://liron.milab.idc.ac.il/php/bacon_send_phonenumber.php";
+	private final String urlCreateTable = "http://liron.milab.idc.ac.il/php/bacon_create_new_table.php";
+	private String url;
 	
 	private List<NameValuePair> postParams;
 	private InputStream is = null;
@@ -41,7 +43,12 @@ public class DataSender extends AsyncTask<Void, Void, Boolean> {
 		this.postParams = params;
 	}
 	
-	public DataSender(List<NameValuePair> params) {
+	public DataSender(int target, List<NameValuePair> params) {
+		if (target == 0) {
+			url = urlSendPhoneNumber;
+		} else if (target == 1) {
+			url = urlCreateTable;
+		}
 //		parentActivity = activity;
 //		dialog = new ProgressDialog(parentActivity);
 		this.postParams = params;
@@ -92,13 +99,13 @@ public class DataSender extends AsyncTask<Void, Void, Boolean> {
 			if (success == 1) {
 				isSendOK = true;
 //				uid = jObj.getInt("uid");
-				Log.d("MiLAB Class", "Data sender succeed: " + json.toString());
+	//			Log.d("MiLAB Class", "Data sender succeed: " + json.toString());
 			} else {
 				// failed to update product
-				Log.d("MiLAB Class", "Data sender failed" + json.toString());
+//				Log.d("MiLAB Class", "Data sender failed" + json.toString());
 			}
 		} catch (Exception e) {
-			Log.d("MiLAB Class", "Data sender failed");
+	//		Log.d("MiLAB Class", "Data sender failed");
 			e.printStackTrace();
 		}
 

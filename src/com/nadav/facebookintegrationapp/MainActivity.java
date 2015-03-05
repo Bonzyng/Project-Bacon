@@ -6,25 +6,33 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.facebook.Request;
+import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
+import com.facebook.model.GraphUser;
 
 public class MainActivity extends FragmentActivity {
+	private static final String TAG = "MainActivity";
 	
 	private static final int SPLASH = 0;
 	private static final int SELECTION = 1;
@@ -36,6 +44,10 @@ public class MainActivity extends FragmentActivity {
 	private boolean isResumed = false;
 	
 	private MenuItem settings;
+	
+	// UserID and ProfileName to be extracted in displayContacts
+	private String userId = "";
+	private String userProfileName = "";
 	
 	private UiLifecycleHelper uiHelper;
 	private Session.StatusCallback callback = 
@@ -170,28 +182,16 @@ public class MainActivity extends FragmentActivity {
 	public void showMenu(View view) {
 		showFragment(SETTINGS, true);
 	}
-	
-	// TEST METHOD TO SEND PHONE NUMBER TO DB
-	public void sendDataToDB(View view) {
-		//send data from form to server
-		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("phoneNumber", "12345"));
-		new DataSender(this, params).execute();
-	}
-	
-	// Settings for display contacts method 
-	private ArrayList<String> userContactsNumbers = new ArrayList<String>();
-	private ArrayList<String> userContactsNames = new ArrayList<String>();
-	private ArrayList<String> dummyPhoneNums = new ArrayList<String>();
-	
-	
-	private void CreateDummyArray (){
-		this.dummyPhoneNums.add("526119963");
-		this.dummyPhoneNums.add("099602709");
-	}
-	
-	private class SendContactsAsync extends AsyncTask<Void, Void, Void> {
 
+	// TODO: Move this to a separate class that will run once Login button is pressed
+	private class SendContactsAsync extends AsyncTask<Void, Void, Void> {
+		
+		private String tableName;
+		
+		public SendContactsAsync(String tableName) {
+			this.tableName = tableName;
+		}
+		
 		@Override
 		protected void onPreExecute() {
 			// TODO Auto-generated method stub
@@ -208,6 +208,8 @@ public class MainActivity extends FragmentActivity {
 			ContentResolver cr = getContentResolver();
 			Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI,
 					null, null, null, null);
+			
+
 			
 			if (cur.getCount() > 0) {
 				while (cur.moveToNext()) {
@@ -229,17 +231,14 @@ public class MainActivity extends FragmentActivity {
 								continue;
 							}
 							phoneNo = phoneNo.substring((phoneNo.length()-9), phoneNo.length());
-							
-							
+													
 							// Create a params array for this contact and send to DB
 							ArrayList<NameValuePair> data = new ArrayList<NameValuePair>();
 							data.add(new BasicNameValuePair("phoneNumber", phoneNo));
 							data.add(new BasicNameValuePair("contactName", name));
-							new DataSender(data).execute();
+							data.add(new BasicNameValuePair("tableName", this.tableName));
+							new DataSender(0, data).execute(); // add rows to tableName
 							
-							//Sending the numbers and Names to dummy Arrays
-							userContactsNames.add(name);
-							userContactsNumbers.add(phoneNo);
 						} 
 						pCur.close();
 					}
@@ -258,63 +257,40 @@ public class MainActivity extends FragmentActivity {
 			toast.show();
 		}
 	}
-	
+		
 	public void displayContacts(View view) {
-		new SendContactsAsync().execute();
-		
-		
-		//int i = 0; //counter
-		//TextView tv = (TextView) findViewById(R.id.tv);
-		/*
-		ContentResolver cr = getContentResolver();
-		Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI,
-				null, null, null, null);
-		
-		if (cur.getCount() > 0) {
-			while (cur.moveToNext()) {
-			String id = cur.getString(cur.getColumnIndex(ContactsContract.Contacts._ID));
-			String name = cur.getString(cur.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-			if (Integer.parseInt(cur.getString(
-					cur.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
-					Cursor pCur = cr.query(
-							ContactsContract.CommonDataKinds.Phone.CONTENT_URI, 
-							null, 
-							ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = ?", 
-									new String[]{id}, null);
-					while (pCur.moveToNext()) {
-						String phoneNo = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-						
-						phoneNo = phoneNo.replaceAll("-", "");
-						// removes dummy phone numbers 
-						if (phoneNo.length() < 9) {
-							continue;
-						}
-						phoneNo = phoneNo.substring((phoneNo.length()-9), phoneNo.length());
-						
-						
-						// Create a params array for this contact and send to DB
-						ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-						params.add(new BasicNameValuePair("phoneNumber", phoneNo));
-						params.add(new BasicNameValuePair("contactName", name));
-						new DataSender(this, params).execute();
-						
-						//Sending the numbers and Names to dummy Arrays
-						userContactsNames.add(name);
-						userContactsNumbers.add(phoneNo);
-					} 
-					pCur.close();
-			//	i++;
+		Log.i("I AM IN DISPLAY CONTACTS", "IN THE MAIN ACTIVITY!!");
+		final Session session = Session.getActiveSession();
+	    if (session != null && session.isOpened()) {
+	        // If the session is open, make an API call to get user data
+	        // and define a new callback to handle the response
+	        Request request = Request.newMeRequest(session, new Request.GraphUserCallback() {
 
-				}
-			}
-		}
-		//CreateDummyArray(); //creates a dummy array to do some matching - need to erase that
-		 *
-		 */
-	}
-	
-	
-	
-	
-	
+				@Override
+				public void onCompleted(GraphUser user, Response response) {
+					Log.i("HI", "I AM IN ONCOMPLETED");
+					 // If the response is successful
+	                if (session == Session.getActiveSession()) {
+	                    if (user != null) {
+	                        userId = user.getId(); //user id
+	                        userProfileName = user.getName(); //user's profile name
+	                        
+	                		userId = "s" + userId; // Table name can't start with digit
+
+	                		ArrayList<NameValuePair> data = new ArrayList<NameValuePair>();
+	                		data.add(new BasicNameValuePair("tableName", userId));
+	                		new DataSender(1, data).execute(); // 1 => create new table
+	                		
+	                		
+	                		// Fill phonenumber table with contact names + numbers
+	                		new SendContactsAsync(userId).execute();
+	                    }   
+	                }   
+				}   
+	        }); 
+	        request.executeAsync();
+	    } else {
+	    	Log.i("displayContacts", "Session is null or closed");
+	    }
+	}	
 }
