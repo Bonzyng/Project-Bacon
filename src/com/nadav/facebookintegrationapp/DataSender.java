@@ -3,7 +3,6 @@ package com.nadav.facebookintegrationapp;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
@@ -14,15 +13,10 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
-import com.nadav.facebookintegrationapp.MainActivity;
-
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.util.Log;
-import android.widget.Toast;
 
 public class DataSender extends AsyncTask<Void, Void, Boolean> {
-	private ProgressDialog dialog;
+
 
 	// url to update user status
 	private final String urlSendPhoneNumber = "http://liron.milab.idc.ac.il/php/bacon_send_phonenumber.php";
@@ -34,12 +28,8 @@ public class DataSender extends AsyncTask<Void, Void, Boolean> {
 	private String line = "";
 	private String json = "";
 	private JSONObject jObj = null;
-//	private MainActivity parentActivity;
-//	private int uid = -1;
 
 	public DataSender(MainActivity activity, List<NameValuePair> params) {
-//		parentActivity = activity;
-//		dialog = new ProgressDialog(parentActivity);
 		this.postParams = params;
 	}
 	
@@ -49,16 +39,12 @@ public class DataSender extends AsyncTask<Void, Void, Boolean> {
 		} else if (target == 1) {
 			url = urlCreateTable;
 		}
-//		parentActivity = activity;
-//		dialog = new ProgressDialog(parentActivity);
 		this.postParams = params;
 	}
 
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-//		dialog.setMessage("Sending data to server, please wait.");
-//		dialog.show();
 	}
 
 	@Override
@@ -98,14 +84,10 @@ public class DataSender extends AsyncTask<Void, Void, Boolean> {
 
 			if (success == 1) {
 				isSendOK = true;
-//				uid = jObj.getInt("uid");
-	//			Log.d("MiLAB Class", "Data sender succeed: " + json.toString());
 			} else {
 				// failed to update product
-//				Log.d("MiLAB Class", "Data sender failed" + json.toString());
 			}
 		} catch (Exception e) {
-	//		Log.d("MiLAB Class", "Data sender failed");
 			e.printStackTrace();
 		}
 
