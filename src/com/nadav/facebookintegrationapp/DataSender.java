@@ -21,6 +21,7 @@ public class DataSender extends AsyncTask<Void, Void, Boolean> {
 	// url to update user status
 	private final String urlSendPhoneNumber = "http://liron.milab.idc.ac.il/php/bacon_send_phonenumber.php";
 	private final String urlCreateTable = "http://liron.milab.idc.ac.il/php/bacon_create_new_table.php";
+	private final String urlAddNewUser = "http://liron.milab.idc.ac.il/php/bacon_add_new_user.php";
 	private String url;
 	
 	private List<NameValuePair> postParams;
@@ -38,6 +39,8 @@ public class DataSender extends AsyncTask<Void, Void, Boolean> {
 			url = urlSendPhoneNumber;
 		} else if (target == 1) {
 			url = urlCreateTable;
+		} else if (target == 2) {
+			url = urlAddNewUser;
 		}
 		this.postParams = params;
 	}

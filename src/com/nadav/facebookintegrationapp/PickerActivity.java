@@ -71,7 +71,7 @@ public class PickerActivity extends FragmentActivity {
 								PickerFragment<?> fragment) {
 							//startSelectedUserActivity(friendPickerFragment.getSelection()); // *****************************************
 							//finishActivity();
-							startActivity(new Intent().setClass(PickerActivity.this, DummyForDemo.class));
+							startActivity(new Intent().setClass(PickerActivity.this, UserListActivity.class));
 						}
 					});
 			friendPickerFragment.setMultiSelect(false);

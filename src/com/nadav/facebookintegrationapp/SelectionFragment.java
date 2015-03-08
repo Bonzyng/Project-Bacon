@@ -34,6 +34,8 @@ public class SelectionFragment extends Fragment {
 	private ProfilePictureView profilePictureView;
 	private TextView userNameView;
 	
+	private String user_ID;
+	
 	private ListView listView;
 	private List<BaseListElement> listElements;
 	
@@ -90,10 +92,12 @@ public class SelectionFragment extends Fragment {
 						profilePictureView.setProfileId(user.getId());
 						
 						userNameView.setText(user.getName());
+						
+						user_ID = "s" + user.getId();
 					}
 				}
 				if (response.getError() != null) {
-					// Handle error, will do later.
+					// Handle error, will do later. Or never, probably.
 				}
 				
 			}
@@ -141,12 +145,21 @@ public class SelectionFragment extends Fragment {
 	    super.onDestroy();
 	    uiHelper.onDestroy();
 	}
-	
+	/*
 	private void startPickerActivity(Uri data, int requestCode) {
+		String test = MainActivity.userFacebookId;
 		Intent intent = new Intent();
 		intent.setData(data);
 		intent.setClass(getActivity(), PickerActivity.class);
 		startActivityForResult(intent, requestCode);
+	}
+	*/
+	
+	private void startUserListActivity() {
+		Intent intent = new Intent();
+		intent.putExtra("User_ID", user_ID);
+		intent.setClass(getActivity(), UserListActivity.class);
+		startActivity(intent);
 	}
 	
 	private class ActionListAdapter extends ArrayAdapter<BaseListElement> {
@@ -211,7 +224,8 @@ public class SelectionFragment extends Fragment {
 			return new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
-					startPickerActivity(PickerActivity.FRIEND_PICKER, getRequestCode());
+//					startPickerActivity(PickerActivity.FRIEND_PICKER, getRequestCode());
+					startUserListActivity();
 				}
 			};
 		}

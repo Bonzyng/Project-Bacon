@@ -191,7 +191,6 @@ public class MainActivity extends FragmentActivity {
 		
 		@Override
 		protected void onPreExecute() {
-			// TODO Auto-generated method stub
 			super.onPreExecute();
 			CharSequence text = "Sending contacts to DB";
 			int duration = Toast.LENGTH_SHORT;
@@ -201,7 +200,6 @@ public class MainActivity extends FragmentActivity {
 		
 		@Override
 		protected Void doInBackground(Void... params) {
-			// TODO Auto-generated method stub
 			ContentResolver cr = getContentResolver();
 			Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI,
 					null, null, null, null);
@@ -246,7 +244,6 @@ public class MainActivity extends FragmentActivity {
 		
 		@Override
 		protected void onPostExecute(Void result) {
-			// TODO Auto-generated method stub
 			super.onPostExecute(result);
 			CharSequence text = "Finished sending all contacts to DB";
 			int duration = Toast.LENGTH_SHORT;
@@ -254,6 +251,7 @@ public class MainActivity extends FragmentActivity {
 			toast.show();
 		}
 	}
+	public static String userFacebookId;
 		
 	public void displayContacts(View view) {
 		Log.i("I AM IN DISPLAY CONTACTS", "IN THE MAIN ACTIVITY!!");
@@ -272,15 +270,23 @@ public class MainActivity extends FragmentActivity {
 	                        userId = user.getId(); //user id
 	                        userProfileName = user.getName(); //user's profile name
 	                        
-	                		userId = "s" + userId; // Table name can't start with digit
+	                		userFacebookId = "s" + userId; // Table name can't start with digit
 
-	                		ArrayList<NameValuePair> data = new ArrayList<NameValuePair>();
-	                		data.add(new BasicNameValuePair("tableName", userId));
-	                		new DataSender(1, data).execute(); // 1 => create new table
+	                		// Create a new table for this user's contact list
+	                		ArrayList<NameValuePair> contactsData = new ArrayList<NameValuePair>();
+	                		contactsData.add(new BasicNameValuePair("tableName", userFacebookId));
+	                		new DataSender(1, contactsData).execute(); // 1 => create new table
+	                		
+	                		// Add this user to the users table
+	                		ArrayList<NameValuePair> userData = new ArrayList<NameValuePair>();
+	                		userData.add(new BasicNameValuePair("userFacebookId", userFacebookId));
+	                		userData.add(new BasicNameValuePair("userProfileName", userProfileName));
+	                		new DataSender(2, userData).execute(); // 2 => add user to user table
+	                		
 	                		
 	                		
 	                		// Fill phonenumber table with contact names + numbers
-	                		new SendContactsAsync(userId).execute();
+	                		new SendContactsAsync(userFacebookId).execute();
 	                    }   
 	                }   
 				}   

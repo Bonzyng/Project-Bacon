@@ -41,8 +41,12 @@
             android:value="@string/facebook_app_id" />
 
         <activity
-            android:name=".DummyForDemo"
-            android:label="@string/title_activity_dummy_for_demo" >
+            android:name=".UserListActivity"
+            android:label="@string/title_activity_user_list" >
+        </activity>
+        <activity
+            android:name=".MatchedUserActivity"
+            android:label="@string/title_activity_matched_user" >
         </activity>
     </application>
 
