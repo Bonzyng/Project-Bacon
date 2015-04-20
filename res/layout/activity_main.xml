@@ -12,7 +12,8 @@
         android:name="com.filos.app.SplashFragment"
         android:id="@+id/splashFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" />  
+
     <!-- 
     TODO: Remove this fragment and replace it with a menu option to logout
     -->

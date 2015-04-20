@@ -62,24 +62,24 @@ public class SelectionFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, 
 	        ViewGroup container, Bundle savedInstanceState) {
 	    super.onCreateView(inflater, container, savedInstanceState);
-	    View view = inflater.inflate(R.layout.selection, 
+	    View view = inflater.inflate(R.layout.filoser_fragment_layout, 
 	            container, false);
 	    
-	    listView = (ListView) view.findViewById(R.id.selection_list);
-	    listElements = new ArrayList<BaseListElement>();
-	    listElements.add(new PeopleListElement(0));
-	    listView.setAdapter(new ActionListAdapter(getActivity(),
-	    		R.id.selection_list, listElements));
-	    
-	    profilePictureView = (ProfilePictureView) view.findViewById(R.id.selection_profile_pic);
-	    profilePictureView.setCropped(true);
-	    
-	    userNameView = (TextView) view.findViewById(R.id.selection_user_name);
-	    
-	    Session session = Session.getActiveSession();
-	    if (session != null && session.isOpened()) {
-	    	makeMeRequest(session);
-	    }
+//	    listView = (ListView) view.findViewById(R.id.selection_list);
+//	    listElements = new ArrayList<BaseListElement>();
+////	    listElements.add(new PeopleListElement(0));
+////	    listView.setAdapter(new ActionListAdapter(getActivity(),
+////	    		R.id.selection_list, listElements));
+//	    
+//	    profilePictureView = (ProfilePictureView) view.findViewById(R.id.selection_profile_pic);
+//	    profilePictureView.setCropped(true);
+//	    
+//	    userNameView = (TextView) view.findViewById(R.id.selection_user_name);
+//	    
+//	    Session session = Session.getActiveSession();
+//	    if (session != null && session.isOpened()) {
+//	    	makeMeRequest(session);
+//	    }
 	    return view;
 	}
 	
@@ -90,11 +90,11 @@ public class SelectionFragment extends Fragment {
 			public void onCompleted(GraphUser user, Response response) {
 				if (session == Session.getActiveSession()) {
 					if (user != null) {
-						profilePictureView.setProfileId(user.getId());
-						
-						userNameView.setText(user.getName());
-						
-						user_ID = "s" + user.getId();
+//						profilePictureView.setProfileId(user.getId());
+//						
+//						userNameView.setText(user.getName());
+//						
+//						user_ID = "s" + user.getId();
 					}
 				}
 				if (response.getError() != null) {
@@ -108,7 +108,7 @@ public class SelectionFragment extends Fragment {
 	
 	private void onSessionStateChange(final Session session, SessionState state, Exception exception) {
 		if (session != null && session.isOpened()) {
-			makeMeRequest(session);
+//			makeMeRequest(session);
 		}
 	}
 	
@@ -163,74 +163,74 @@ public class SelectionFragment extends Fragment {
 		startActivity(intent);
 	}
 	
-	private class ActionListAdapter extends ArrayAdapter<BaseListElement> {
-		private List<BaseListElement> listElements;
-		
-		public ActionListAdapter(Context context, int resourceId,
-				List<BaseListElement> listElements) {
-			super(context, resourceId, listElements);
-			
-			this.listElements = listElements;
-			
-			for (int i = 0; i < listElements.size(); i++) {
-				listElements.get(i).setAdapter(this);
-			}
-		}
-		
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			View view = convertView;
-			if (view == null) {
-				LayoutInflater inflater = (LayoutInflater) getActivity()
-						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				view = inflater.inflate(R.layout.listitem, null);
-						
-			}
-			
-			BaseListElement listElement = listElements.get(position);
-			if (listElement != null) {
-				view.setOnClickListener(listElement.getOnClickListener());
-				ImageView icon = (ImageView) view.findViewById(R.id.icon);
-				TextView text1 = (TextView) view.findViewById(R.id.text1);
-				TextView text2 = (TextView) view.findViewById(R.id.text2);
-				
-				if (icon != null) {
-					icon.setImageDrawable(listElement.getIcon());
-				}
-				
-				if (text1 != null) {
-					text1.setText(listElement.getText1());
-				}
-				
-				if (text2 != null) {
-					text2.setText(listElement.getText2());
-				}
-			}
-			
-			return view;
-		}
-	}
-	
-	private class PeopleListElement extends BaseListElement {
-		
-		public PeopleListElement(int requestCode) {
-			super(getActivity().getResources().getDrawable(R.drawable.add_friends), 
-					getActivity().getResources().getString(R.string.action_people),
-					getActivity().getResources().getString(R.string.action_people_default), 
-					requestCode);
-		}
-		
-		@Override
-		protected View.OnClickListener getOnClickListener() {
-			return new View.OnClickListener() {
-				@Override
-				public void onClick(View view) {
-//					startPickerActivity(PickerActivity.FRIEND_PICKER, getRequestCode());
-					startUserListActivity();
-				}
-			};
-		}
-	}
+//	private class ActionListAdapter extends ArrayAdapter<BaseListElement> {
+//		private List<BaseListElement> listElements;
+//		
+//		public ActionListAdapter(Context context, int resourceId,
+//				List<BaseListElement> listElements) {
+//			super(context, resourceId, listElements);
+//			
+//			this.listElements = listElements;
+//			
+//			for (int i = 0; i < listElements.size(); i++) {
+//				listElements.get(i).setAdapter(this);
+//			}
+//		}
+//		
+//		@Override
+//		public View getView(int position, View convertView, ViewGroup parent) {
+//			View view = convertView;
+//			if (view == null) {
+//				LayoutInflater inflater = (LayoutInflater) getActivity()
+//						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//				view = inflater.inflate(R.layout.listitem, null);
+//						
+//			}
+//			
+//			BaseListElement listElement = listElements.get(position);
+//			if (listElement != null) {
+//				view.setOnClickListener(listElement.getOnClickListener());
+//				ImageView icon = (ImageView) view.findViewById(R.id.icon);
+//				TextView text1 = (TextView) view.findViewById(R.id.text1);
+//				TextView text2 = (TextView) view.findViewById(R.id.text2);
+//				
+//				if (icon != null) {
+//					icon.setImageDrawable(listElement.getIcon());
+//				}
+//				
+//				if (text1 != null) {
+//					text1.setText(listElement.getText1());
+//				}
+//				
+//				if (text2 != null) {
+//					text2.setText(listElement.getText2());
+//				}
+//			}
+//			
+//			return view;
+//		}
+//	}
+//	
+//	private class PeopleListElement extends BaseListElement {
+//		
+//		public PeopleListElement(int requestCode) {
+//			super(getActivity().getResources().getDrawable(R.drawable.add_friends), 
+//					getActivity().getResources().getString(R.string.action_people),
+//					getActivity().getResources().getString(R.string.action_people_default), 
+//					requestCode);
+//		}
+//		
+//		@Override
+//		protected View.OnClickListener getOnClickListener() {
+//			return new View.OnClickListener() {
+//				@Override
+//				public void onClick(View view) {
+////					startPickerActivity(PickerActivity.FRIEND_PICKER, getRequestCode());
+//					startUserListActivity();
+//				}
+//			};
+//		}
+//	}
 	
 
 }
