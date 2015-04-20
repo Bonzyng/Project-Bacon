@@ -20,5 +20,6 @@
     <string name="filos_logo_description">Filos App Logo</string>
     <string name="sign_in_fb">Sign in with Facebook</string>
     <string name="splash_welcome_message">Start finding people you may know</string>
+    <string name="result_user_profile_pic">Profile picture of all matched users</string>
 
 </resources>

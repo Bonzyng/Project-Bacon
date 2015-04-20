@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.facebook.Request;
 import com.facebook.Response;
@@ -270,4 +271,10 @@ public class MainActivity extends FragmentActivity {
 	    	Log.i("displayContacts", "Session is null or closed");
 	    }
 	}	
+	
+	public void matchContacts(View view) {
+		CharSequence text = "Testing click";
+		Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+		toast.show();
+	}
 }

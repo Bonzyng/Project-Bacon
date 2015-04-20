@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.Request;
 import com.facebook.Response;
@@ -29,7 +30,7 @@ import com.nadav.facebookintegrationapp.R;
 /*
  * TODO: Turn this into the main app screen, with the scan button and everything.
  */
-public class SelectionFragment extends Fragment {
+public class FilosMainFragment extends Fragment {
 	private static final String TAG = "SelectionFragment";
 	
 	private ProfilePictureView profilePictureView;
@@ -62,7 +63,7 @@ public class SelectionFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, 
 	        ViewGroup container, Bundle savedInstanceState) {
 	    super.onCreateView(inflater, container, savedInstanceState);
-	    View view = inflater.inflate(R.layout.filoser_fragment_layout, 
+	    View view = inflater.inflate(R.layout.filos_results_fragment, 
 	            container, false);
 	    
 //	    listView = (ListView) view.findViewById(R.id.selection_list);
@@ -232,5 +233,4 @@ public class SelectionFragment extends Fragment {
 //		}
 //	}
 	
-
 }

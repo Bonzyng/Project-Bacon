@@ -12,12 +12,9 @@ import android.view.ViewGroup;
 import com.facebook.Session;
 import com.facebook.widget.LoginButton;
 import com.nadav.facebookintegrationapp.R;
-/*
- * TODO: Collect contacts and save them to server when a user does a login.
- */
+
 public class SplashFragment extends Fragment {
 
-//	private static final MainActivity Context = null;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, 
