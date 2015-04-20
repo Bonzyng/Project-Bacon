@@ -4,12 +4,12 @@
     android:orientation="vertical">
 
     <fragment 
-        android:name="com.nadav.facebookintegrationapp.SelectionFragment"
+        android:name="com.filos.app.SelectionFragment"
         android:id="@+id/selectionFragment"
         android:layout_height="match_parent"
         android:layout_width="match_parent" />
     <fragment 
-        android:name="com.nadav.facebookintegrationapp.SplashFragment"
+        android:name="com.filos.app.SplashFragment"
         android:id="@+id/splashFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

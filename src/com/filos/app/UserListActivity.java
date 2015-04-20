@@ -1,4 +1,4 @@
-package com.nadav.facebookintegrationapp;
+package com.filos.app;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,6 +8,8 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import com.nadav.facebookintegrationapp.R;
 
 import android.content.Intent;
 import android.os.Bundle;

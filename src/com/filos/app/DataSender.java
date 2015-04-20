@@ -1,4 +1,4 @@
-package com.nadav.facebookintegrationapp;
+package com.filos.app;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

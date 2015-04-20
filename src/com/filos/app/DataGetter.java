@@ -1,4 +1,4 @@
-package com.nadav.facebookintegrationapp;
+package com.filos.app;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -17,7 +17,7 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.nadav.facebookintegrationapp.UserListActivity.PlaceholderFragment;
+import com.filos.app.UserListActivity.PlaceholderFragment;
 
 public class DataGetter extends AsyncTask<Void, Void, Boolean> {
 
