@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.nadav.facebookintegrationapp.R;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,7 @@ public class MatchedUsersAdapter extends ArrayAdapter<MatchedUser> {
 		ImageView userFacebookPic = (ImageView) view.findViewById(R.id.user_profile_pic);		
 		TextView userFacebookName = (TextView) view.findViewById(R.id.user_profile_name);	
 		TextView numOfMatched = (TextView) view.findViewById(R.id.mutual_contacts_number);
-		
+
 		userFacebookName.setText(mMatchedUsers.get(position).getUserName());
 		numOfMatched.setText(Integer.toString(mMatchedUsers.get(position).getNumOfSharedContacts()));
 		
