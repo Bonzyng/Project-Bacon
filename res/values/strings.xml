@@ -18,5 +18,6 @@
     
     <string name="filos_logo_bottom_text">Click to scan for people you may have friends with!</string>
     <string name="filos_logo_description">Filos App Logo</string>
+    <string name="sign_in_fb">Sign in with Facebook</string>
 
 </resources>
