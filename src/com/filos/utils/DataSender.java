@@ -35,7 +35,7 @@ public class DataSender extends AsyncTask<Void, Void, Boolean> {
 	private String line = "";
 	private String json = "";
 	private JSONObject jObj = null;
-	private int mDataSendOperation;
+	private int mRequestCode;
 	private MainActivity mCallerActivity;
 	private String mUserFacebookId;
 
@@ -51,7 +51,7 @@ public class DataSender extends AsyncTask<Void, Void, Boolean> {
 		} else if (target == ADD_NEW_USER) {
 			url = urlAddNewUser;
 		}
-		mDataSendOperation = target;
+		mRequestCode = target;
 		mCallerActivity = activity;
 		mUserFacebookId = userFacebookId;
 		this.postParams = params;
@@ -111,7 +111,7 @@ public class DataSender extends AsyncTask<Void, Void, Boolean> {
 
 	@Override
 	protected void onPostExecute(Boolean isSendOK) {
-		if (isSendOK && mDataSendOperation == CREATE_TABLE) {
+		if (isSendOK && mRequestCode == CREATE_TABLE) {
 			new ContactsSenderAsync(mUserFacebookId, mCallerActivity).execute();
 		} else {
 //			CharSequence text = "Send Data Faild!";
