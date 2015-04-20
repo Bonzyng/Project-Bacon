@@ -15,5 +15,7 @@
     <string name="title_activity_user_list">All App Users</string>
     <string name="temp_app_name">Filos - Rediscover Your Friends</string>
     <string name="title_activity_matched_user">MatchedUserActivity</string>
+    
+    <string name="filos_logo_bottom_text">Click to scan for people you may have friends with!</string>
 
 </resources>

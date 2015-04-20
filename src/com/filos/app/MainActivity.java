@@ -29,6 +29,8 @@ import com.nadav.facebookintegrationapp.R;
 public class MainActivity extends FragmentActivity {
 	private static final String TAG = "MainActivity";
 	
+	private static String userFacebookId; // Will hold this user's facebook Id
+	
 	private static final int SPLASH = 0;
 	private static final int SELECTION = 1;
 	private static final int SETTINGS = 2;
@@ -155,6 +157,8 @@ public class MainActivity extends FragmentActivity {
 	    uiHelper.onSaveInstanceState(outState);
 	}
 	
+	/*
+	 * Unused menu methods
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		if (fragments[SELECTION].isVisible()) {
@@ -181,9 +185,9 @@ public class MainActivity extends FragmentActivity {
 	public void showMenu(View view) {
 		showFragment(SETTINGS, true);
 	}
-	
-	public static String userFacebookId;
+	*/
 		
+	// Should be removed in future
 	public void displayContacts(View view) {
 		Log.i("I AM IN DISPLAY CONTACTS", "IN THE MAIN ACTIVITY!!");
 		final Session session = Session.getActiveSession();
@@ -216,8 +220,8 @@ public class MainActivity extends FragmentActivity {
 	                		
 	                		
 // Added this call to DataSender postExecute	                		
-	                		// Fill phonenumber table with contact names + numbers
-	                		new ContactsSenderAsync(userFacebookId, MainActivity.this).execute();
+//	                		// Fill phonenumber table with contact names + numbers
+//	                		new ContactsSenderAsync(userFacebookId, MainActivity.this).execute();
 	                    }   
 	                }   
 				}   
