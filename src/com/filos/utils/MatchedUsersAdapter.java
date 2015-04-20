@@ -47,10 +47,15 @@ public class MatchedUsersAdapter extends ArrayAdapter<MatchedUser> {
 		
 		//Gets the matched user profile picture
 		
-		String url = "https://graph.facebook.com/" + " " + "/picture?type=large";
+		String urlBeginning = "https://graph.facebook.com/"; 
+		String urlEnd = "/picture?type=large";
+		String userFacebookId = mMatchedUsers.get(position).getFacebookId();
+		
+		String url = urlBeginning + userFacebookId + urlEnd;
+		
 		ImageView userFacebookPic = (ImageView) view.findViewById(R.id.user_profile_pic);
 		Picasso.with(context)
-		.load("https://graph.facebook.com/10205079633206382/picture?type=large")
+		.load(url)
 		.transform(new CircleTransform())
 		.into(userFacebookPic);
 		

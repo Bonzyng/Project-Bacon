@@ -56,6 +56,7 @@ public class Matcher {
 		String jsonArrayString = jsonArray.toString();
 		String userId = jsonArrayString.substring(jsonArrayString.indexOf(':') + 2,jsonArrayString.length() - 3);
 		mOtherUserId = userId;
+		matchedUser.setFacebookId(mOtherUserId.substring(1));
 
 		ArrayList<NameValuePair> userIdsArray = new ArrayList<NameValuePair>();
  		userIdsArray.add(new BasicNameValuePair("myUserId", mUserId));
@@ -100,7 +101,7 @@ public class Matcher {
 		for(int i = 0; i < numOfUsers; i++) {
 			MatchedUser matchedUser = new MatchedUser();
 			matchedUser.setUserName(allUsers[i]);
-			matchedUser.setFacebookId(mUserId.substring(1));
+//			matchedUser.setFacebookId(mUserId.substring(1));
 			matchUsers(allUsers[i], matchedUser, i);
 			mMatchedUsers.add(matchedUser);
 		}
