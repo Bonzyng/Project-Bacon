@@ -38,6 +38,9 @@
         android:layout_margin="20dp"
         android:background="@drawable/button_border" /> 
 
+    <!-- 
+    	TODO: Remove this layout + button and add a menu with logout option
+   	-->
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
@@ -48,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:onClick="showMenu"
+            android:onClick="displayContacts"
             android:text="@string/settings" />
 
     </RelativeLayout>

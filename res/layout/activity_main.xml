@@ -4,19 +4,22 @@
     android:orientation="vertical">
 
     <fragment 
-        android:name="com.nadav.facebookintegrationapp.SelectionFragment"
+        android:name="com.filos.app.SelectionFragment"
         android:id="@+id/selectionFragment"
         android:layout_height="match_parent"
         android:layout_width="match_parent" />
     <fragment 
-        android:name="com.nadav.facebookintegrationapp.SplashFragment"
+        android:name="com.filos.app.SplashFragment"
         android:id="@+id/splashFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <!-- 
+    TODO: Remove this fragment and replace it with a menu option to logout
+    -->
     <fragment
         android:name="com.facebook.widget.UserSettingsFragment"
         android:id="@+id/userSettingsFragment"
         android:layout_height="match_parent"
-        android:layout_width="match_parent" />"
+        android:layout_width="match_parent" />
 
 </LinearLayout>
