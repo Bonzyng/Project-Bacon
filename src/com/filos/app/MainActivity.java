@@ -25,6 +25,7 @@ import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
 import com.filos.utils.ContactsSenderAsync;
 import com.filos.utils.DataSender;
+import com.filos.utils.Matcher;
 import com.nadav.facebookintegrationapp.R;
 
 public class MainActivity extends FragmentActivity {
@@ -273,7 +274,9 @@ public class MainActivity extends FragmentActivity {
 	}	
 	
 	public void matchContacts(View view) {
-		CharSequence text = "Testing click";
+		Matcher matcher = new Matcher(userId);
+		matcher.match();
+		CharSequence text = "Matcher running";
 		Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
 		toast.show();
 	}

@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.filos.utils.DataGetter;
+import com.filos.utils.Matcher;
 import com.nadav.facebookintegrationapp.R;
 
 import android.support.v7.app.ActionBarActivity;
@@ -64,7 +65,7 @@ public class MatchedUserActivity extends ActionBarActivity {
 		new DataGetter(1, this, userNameAsArray).execute();
 	}
 	
-	public void matchContacts(JSONArray jsonArray) {
+	public void matchContacts(JSONArray jsonArray, Matcher matcher) {
 		String jsonArrayString = jsonArray.toString();
 		String userId = jsonArrayString.substring(jsonArrayString.indexOf(':') + 2,jsonArrayString.length() - 3);
 		mOtherUserId = userId;
@@ -75,7 +76,7 @@ public class MatchedUserActivity extends ActionBarActivity {
  		userIdsArray.add(new BasicNameValuePair("otherUserId", mOtherUserId));
 // 		Log.i("myUserId is: ", myUserId);
 // 		Log.i("otherUserId is: ", mOtherUserId);
- 		new DataGetter(2, this, userIdsArray).execute();
+ 		new DataGetter(2, matcher, null, userIdsArray).execute();
 	}
 
 	public void setDataFromServer(JSONArray matchedUsers) {

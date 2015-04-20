@@ -63,7 +63,7 @@ public class FilosMainFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, 
 	        ViewGroup container, Bundle savedInstanceState) {
 	    super.onCreateView(inflater, container, savedInstanceState);
-	    View view = inflater.inflate(R.layout.filos_results_fragment, 
+	    View view = inflater.inflate(R.layout.filos_pre_scan_fragment, 
 	            container, false);
 	    
 //	    listView = (ListView) view.findViewById(R.id.selection_list);

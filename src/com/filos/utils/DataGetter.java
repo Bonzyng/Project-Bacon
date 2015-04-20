@@ -17,8 +17,8 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.filos.app.FilosResultsActivity;
 import com.filos.app.MatchedUserActivity;
-import com.filos.app.UserListActivity;
 import com.filos.app.UserListActivity.PlaceholderFragment;
 
 public class DataGetter extends AsyncTask<Void, Void, Boolean> {
@@ -36,8 +36,29 @@ public class DataGetter extends AsyncTask<Void, Void, Boolean> {
 	private JSONObject jObj = null;
 	private PlaceholderFragment fragmentCaller;
 	private MatchedUserActivity activityCaller;
+	
+	private Matcher mMatcher;
+	private MatchedUser mMatchedUser;
+	
 	private int requestCode;
 
+
+	public DataGetter(int requestCode, Matcher caller, MatchedUser matchedUser, List<NameValuePair> params) {
+		if (requestCode == 0) {
+			url = urlGetUsers;
+		} else if (requestCode == 1) {
+			url = urlGetUserId;
+		} else if (requestCode == 2) {
+			url = urlMatchContacts;
+		}
+		
+		this.requestCode = requestCode;
+
+		this.requestParams = params;
+		mMatchedUser = matchedUser;
+		mMatcher = caller;
+	}
+	
 	public DataGetter(int requestCode, PlaceholderFragment caller, List<NameValuePair> params) {
 		if (requestCode == 0) {
 			url = urlGetUsers;
@@ -108,16 +129,16 @@ public class DataGetter extends AsyncTask<Void, Void, Boolean> {
 
 			if (success == 1) {
 				isSendOK = true;
-				Log.d("MiLAB Class", "Data sender succeed: " + json.toString());
+//				Log.d("MiLAB Class", "Data sender succeed: " + json.toString());
 			} else {
 				// failed to update product
-				Log.d("MiLAB Class", "Data sender failed" + json.toString());
+//				Log.d("MiLAB Class", "Data sender failed" + json.toString());
 			}
 		} catch (Exception e) {
 			Log.d("MiLAB Class", "Data sender failed");
 			e.printStackTrace();
 		}
-		Log.i("In doInBackground", "Response is: " + json.toString());
+//		Log.i("In doInBackground", "Response is: " + json.toString());
 		return isSendOK;
 	}
 
@@ -125,12 +146,22 @@ public class DataGetter extends AsyncTask<Void, Void, Boolean> {
 	protected void onPostExecute(Boolean isSendOK) {
 		if (isSendOK) {
 			try {
-				if (fragmentCaller != null) {
+				if (mMatcher != null) {
+					if (requestCode == 1) {
+						mMatcher.matchContacts(jObj.getJSONArray("users"), mMatchedUser);
+					} else if (requestCode == 2) {
+						mMatcher.populateMatchedUserSharedContacts(jObj.getJSONArray("users"), mMatchedUser);
+						mMatcher.findMatchedUserMutualFriends(mMatchedUser);
+					} else if (requestCode == 0) {
+						mMatcher.matchAllUsers(jObj.getJSONArray("users"));
+					}
+				// TODO: Still need all this?
+				} else if (fragmentCaller != null) {
 					fragmentCaller.setDataFromServer(jObj.getJSONArray("users"));
 
 				} else if (activityCaller != null) {
 					if (requestCode == 1) {
-						activityCaller.matchContacts(jObj.getJSONArray("users"));
+//						activityCaller.matchContacts(jObj.getJSONArray("users"));
 					} else if (requestCode == 2) {
 						activityCaller.setDataFromServer(jObj.getJSONArray("users"));
 					}			

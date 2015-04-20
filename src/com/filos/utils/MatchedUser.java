@@ -2,9 +2,16 @@ package com.filos.utils;
 
 import java.util.ArrayList;
 
+/**
+ * A data holder for each matched user to be used later by the MatchedUserAdapter
+ * 
+ * @author Nadav
+ *
+ */
 public class MatchedUser {
 	private int mNumOfSharedContacts;
 	private int mNumOfMutualFBFriends;
+	private String mFacebookId;
 	private ArrayList<String> mSharedContacts;
 	private ArrayList<String> mMutualFBFriends;
 	private String mUserFBName;
@@ -48,5 +55,13 @@ public class MatchedUser {
 	
 	public ArrayList<String> getSharedContacts() {
 		return mSharedContacts;
+	}
+
+	public String getFacebookId() {
+		return mFacebookId;
+	}
+
+	public void setFacebookId(String facebookId) {
+		this.mFacebookId = facebookId;
 	}
 }
