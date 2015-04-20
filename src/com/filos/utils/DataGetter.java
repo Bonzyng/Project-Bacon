@@ -41,9 +41,10 @@ public class DataGetter extends AsyncTask<Void, Void, Boolean> {
 	private MatchedUser mMatchedUser;
 	
 	private int requestCode;
+	private int index;
 
 
-	public DataGetter(int requestCode, Matcher caller, MatchedUser matchedUser, List<NameValuePair> params) {
+	public DataGetter(int requestCode, Matcher caller, MatchedUser matchedUser, int index, List<NameValuePair> params) {
 		if (requestCode == 0) {
 			url = urlGetUsers;
 		} else if (requestCode == 1) {
@@ -57,6 +58,7 @@ public class DataGetter extends AsyncTask<Void, Void, Boolean> {
 		this.requestParams = params;
 		mMatchedUser = matchedUser;
 		mMatcher = caller;
+		this.index = index;
 	}
 	
 	public DataGetter(int requestCode, PlaceholderFragment caller, List<NameValuePair> params) {
@@ -148,9 +150,9 @@ public class DataGetter extends AsyncTask<Void, Void, Boolean> {
 			try {
 				if (mMatcher != null) {
 					if (requestCode == 1) {
-						mMatcher.matchContacts(jObj.getJSONArray("users"), mMatchedUser);
+						mMatcher.matchContacts(jObj.getJSONArray("users"), mMatchedUser, index);
 					} else if (requestCode == 2) {
-						mMatcher.populateMatchedUserSharedContacts(jObj.getJSONArray("users"), mMatchedUser);
+						mMatcher.populateMatchedUserSharedContacts(jObj.getJSONArray("users"), mMatchedUser, index);
 						mMatcher.findMatchedUserMutualFriends(mMatchedUser);
 					} else if (requestCode == 0) {
 						mMatcher.matchAllUsers(jObj.getJSONArray("users"));

@@ -48,6 +48,10 @@
             android:name="com.filos.app.MatchedUserActivity"
             android:label="@string/title_activity_matched_user" >
         </activity>
+        <activity 
+            android:name="com.filos.app.FilosResultsActivity"
+            android:label="@string/title_activity_filos_results" >
+        </activity>
     </application>
 
 </manifest>

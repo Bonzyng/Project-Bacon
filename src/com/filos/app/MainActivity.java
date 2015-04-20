@@ -34,9 +34,9 @@ public class MainActivity extends FragmentActivity {
 	private static String userFacebookId; // Will hold this user's facebook Id
 	
 	private static final int SPLASH = 0;
-	private static final int SELECTION = 1;
-	private static final int SETTINGS = 2;
-	private static final int FRAGMENT_COUNT = SETTINGS + 1;
+	private static final int MAIN_PRE_SCAN = 1;
+	private static final int RESULTS = 2;
+	private static final int FRAGMENT_COUNT = MAIN_PRE_SCAN + 1;
 	
 	private Fragment[] fragments = new Fragment[FRAGMENT_COUNT];
 	
@@ -47,6 +47,8 @@ public class MainActivity extends FragmentActivity {
 	// UserID and ProfileName to be extracted in displayContacts
 	private String userId = "";
 	private String userProfileName = "";
+	
+	public static Matcher mMatcher;
 	
 	private UiLifecycleHelper uiHelper;
 	private Session.StatusCallback callback = 
@@ -69,9 +71,9 @@ public class MainActivity extends FragmentActivity {
 	    
 	    FragmentManager fm = getSupportFragmentManager();
 	    fragments[SPLASH] = fm.findFragmentById(R.id.splashFragment);
-	    fragments[SELECTION] = fm.findFragmentById(R.id.selectionFragment);
+	    fragments[MAIN_PRE_SCAN] = fm.findFragmentById(R.id.selectionFragment);
 //	    fragments[SELECTION] = fm.findFragmentById(R.id.filoserFragment);
-	    fragments[SETTINGS] = fm.findFragmentById(R.id.userSettingsFragment);
+//	    fragments[RESULTS] = fm.findFragmentById(R.id.resultsFragment);
 	    
 	    FragmentTransaction transaction = fm.beginTransaction();
 	    for (int i = 0; i < fragments.length; i++) {
@@ -85,7 +87,7 @@ public class MainActivity extends FragmentActivity {
 		FragmentTransaction transaction = fm.beginTransaction();
 		for (int i = 0; i < fragments.length; i++) {
 			if (i == fragmentIndex) {
-				if (i == SELECTION) {
+				if (i == MAIN_PRE_SCAN) {
 					// TODO: Add call to ContactsSenderAsync
 					AddNewUserAndSendContacts();
 				}
@@ -109,7 +111,7 @@ public class MainActivity extends FragmentActivity {
 			}
 			
 			if (state.isOpened()) {
-				showFragment(SELECTION, false);
+				showFragment(MAIN_PRE_SCAN, false);
 			} else if (state.isClosed()) {
 				showFragment(SPLASH, false);
 			}
@@ -122,7 +124,7 @@ public class MainActivity extends FragmentActivity {
 		Session session = Session.getActiveSession();
 		
 		if (session != null && session.isOpened()) {
-			showFragment(SELECTION, false);
+			showFragment(MAIN_PRE_SCAN, false);
 		} else {
 			showFragment(SPLASH, false);
 		}
@@ -274,8 +276,19 @@ public class MainActivity extends FragmentActivity {
 	}	
 	
 	public void matchContacts(View view) {
-		Matcher matcher = new Matcher(userId);
-		matcher.match();
+//		if (mMatcher != null) {
+//			mMatcher = null;
+//		}
+//		mMatcher = new Matcher(userId, this);
+//		mMatcher.match();
+//		showFragment(RESULTS, false);
+//		
+		
+		Intent intent = new Intent(this, FilosResultsActivity.class);
+		intent.putExtra("userId", userId);
+		
+		startActivity(intent);
+		
 		CharSequence text = "Matcher running";
 		Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
 		toast.show();

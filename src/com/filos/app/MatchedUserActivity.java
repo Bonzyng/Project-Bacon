@@ -76,7 +76,7 @@ public class MatchedUserActivity extends ActionBarActivity {
  		userIdsArray.add(new BasicNameValuePair("otherUserId", mOtherUserId));
 // 		Log.i("myUserId is: ", myUserId);
 // 		Log.i("otherUserId is: ", mOtherUserId);
- 		new DataGetter(2, matcher, null, userIdsArray).execute();
+ 		new DataGetter(2, matcher, null, 0, userIdsArray).execute();
 	}
 
 	public void setDataFromServer(JSONArray matchedUsers) {
