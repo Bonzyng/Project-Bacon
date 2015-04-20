@@ -3,4 +3,5 @@
     <color name="opaque_white">#FFFFFF</color>
     <color name="semi_trans_white">#CFFFFFFF</color>
     <color name="welcome_text_gray">#707173</color>
+    <color name="list_item_gray">#D9DADC</color>
 </resources>
