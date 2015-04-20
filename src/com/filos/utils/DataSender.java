@@ -1,4 +1,4 @@
-package com.filos.app;
+package com.filos.utils;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -13,6 +13,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
+import com.filos.app.MainActivity;
+
 import android.os.AsyncTask;
 
 public class DataSender extends AsyncTask<Void, Void, Boolean> {
@@ -24,24 +26,34 @@ public class DataSender extends AsyncTask<Void, Void, Boolean> {
 	private final String urlAddNewUser = "http://liron.milab.idc.ac.il/php/bacon_add_new_user.php";
 	private String url;
 	
+	private static final int SEND_PHONE_CONTACTS = 0;
+	private static final int CREATE_TABLE = 1;
+	private static final int ADD_NEW_USER = 2;
+	
 	private List<NameValuePair> postParams;
 	private InputStream is = null;
 	private String line = "";
 	private String json = "";
 	private JSONObject jObj = null;
+	private int mDataSendOperation;
+	private MainActivity mCallerActivity;
+	private String mUserFacebookId;
 
 	public DataSender(MainActivity activity, List<NameValuePair> params) {
 		this.postParams = params;
 	}
 	
-	public DataSender(int target, List<NameValuePair> params) {
-		if (target == 0) {
+	public DataSender(MainActivity activity, int target, String userFacebookId, List<NameValuePair> params) {
+		if (target == SEND_PHONE_CONTACTS) {
 			url = urlSendPhoneNumber;
-		} else if (target == 1) {
+		} else if (target == CREATE_TABLE) {
 			url = urlCreateTable;
-		} else if (target == 2) {
+		} else if (target == ADD_NEW_USER) {
 			url = urlAddNewUser;
 		}
+		mDataSendOperation = target;
+		mCallerActivity = activity;
+		mUserFacebookId = userFacebookId;
 		this.postParams = params;
 	}
 
@@ -96,26 +108,17 @@ public class DataSender extends AsyncTask<Void, Void, Boolean> {
 
 		return isSendOK;
 	}
-/*
+
 	@Override
 	protected void onPostExecute(Boolean isSendOK) {
-		if (dialog.isShowing()) {
-			dialog.dismiss();
-		}
-		
-		if (isSendOK) {
-		//	parentActivity.saveUID(uid);
-			CharSequence text = "Send Data Succeeded!";
-			int duration = Toast.LENGTH_SHORT;
-			Toast toast = Toast.makeText(parentActivity, text, duration);
-			toast.show();
+		if (isSendOK && mDataSendOperation == CREATE_TABLE) {
+			new ContactsSenderAsync(mUserFacebookId, mCallerActivity).execute();
 		} else {
-			CharSequence text = "Send Data Faild!";
-			int duration = Toast.LENGTH_SHORT;
-			Toast toast = Toast.makeText(parentActivity, text, duration);
-			toast.show();
+//			CharSequence text = "Send Data Faild!";
+//			int duration = Toast.LENGTH_SHORT;
+//			Toast toast = Toast.makeText(parentActivity, text, duration);
+//			toast.show();
 		}
 	}
-	*/
 
 }

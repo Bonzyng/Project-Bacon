@@ -5,12 +5,8 @@ import java.util.ArrayList;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.database.Cursor;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -19,7 +15,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.facebook.Request;
 import com.facebook.Response;
@@ -27,9 +22,9 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
+import com.filos.utils.ContactsSenderAsync;
+import com.filos.utils.DataSender;
 import com.nadav.facebookintegrationapp.R;
-
-import com.filos.utils.*;
 
 public class MainActivity extends FragmentActivity {
 	private static final String TAG = "MainActivity";
@@ -85,6 +80,10 @@ public class MainActivity extends FragmentActivity {
 		FragmentTransaction transaction = fm.beginTransaction();
 		for (int i = 0; i < fragments.length; i++) {
 			if (i == fragmentIndex) {
+				if (i == SELECTION) {
+					// TODO: Add call to ContactsSenderAsync
+					AddNewUserAndSendContacts();
+				}
 				transaction.show(fragments[i]);
 			} else {
 				transaction.hide(fragments[i]);
@@ -182,8 +181,6 @@ public class MainActivity extends FragmentActivity {
 	public void showMenu(View view) {
 		showFragment(SETTINGS, true);
 	}
-
-	// TODO: Move this to a separate class that will run once Login button is pressed
 	
 	public static String userFacebookId;
 		
@@ -209,18 +206,56 @@ public class MainActivity extends FragmentActivity {
 	                		// Create a new table for this user's contact list
 	                		ArrayList<NameValuePair> contactsData = new ArrayList<NameValuePair>();
 	                		contactsData.add(new BasicNameValuePair("tableName", userFacebookId));
-	                		new DataSender(1, contactsData).execute(); // 1 => create new table
+	                		new DataSender(MainActivity.this, 1, userFacebookId, contactsData).execute(); // 1 => create new table
 	                		
 	                		// Add this user to the users table
 	                		ArrayList<NameValuePair> userData = new ArrayList<NameValuePair>();
 	                		userData.add(new BasicNameValuePair("userFacebookId", userFacebookId));
 	                		userData.add(new BasicNameValuePair("userProfileName", userProfileName));
-	                		new DataSender(2, userData).execute(); // 2 => add user to user table
+	                		new DataSender(MainActivity.this, 2, userFacebookId, userData).execute(); // 2 => add user to user table
 	                		
 	                		
-	                		
+// Added this call to DataSender postExecute	                		
 	                		// Fill phonenumber table with contact names + numbers
 	                		new ContactsSenderAsync(userFacebookId, MainActivity.this).execute();
+	                    }   
+	                }   
+				}   
+	        }); 
+	        request.executeAsync();
+	    } else {
+	    	Log.i("displayContacts", "Session is null or closed");
+	    }
+	}	
+	
+	private void AddNewUserAndSendContacts() {
+		final Session session = Session.getActiveSession();
+	    if (session != null && session.isOpened()) {
+	        // If the session is open, make an API call to get user data
+	        // and define a new callback to handle the response
+	        Request request = Request.newMeRequest(session, new Request.GraphUserCallback() {
+
+				@Override
+				public void onCompleted(GraphUser user, Response response) {
+					 // If the response is successful
+	                if (session == Session.getActiveSession()) {
+	                    if (user != null) {
+	                        userId = user.getId(); //user id
+	                        userProfileName = user.getName(); //user's profile name
+	                        
+	                		userFacebookId = "s" + userId; // Table name can't start with digit
+
+	                		// Create a new table for this user's contact list
+	                		ArrayList<NameValuePair> contactsData = new ArrayList<NameValuePair>();
+	                		contactsData.add(new BasicNameValuePair("tableName", userFacebookId));
+	                		new DataSender(MainActivity.this, 1, userFacebookId, contactsData).execute(); // 1 => create new table
+	                		
+	                		// Add this user to the users table
+	                		ArrayList<NameValuePair> userData = new ArrayList<NameValuePair>();
+	                		userData.add(new BasicNameValuePair("userFacebookId", userFacebookId));
+	                		userData.add(new BasicNameValuePair("userProfileName", userProfileName));
+	                		new DataSender(MainActivity.this, 2, userFacebookId, userData).execute(); // 2 => add user to user table
+	                		
 	                    }   
 	                }   
 				}   

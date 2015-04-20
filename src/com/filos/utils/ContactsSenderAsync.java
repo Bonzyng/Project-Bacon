@@ -11,7 +11,6 @@ import android.os.AsyncTask;
 import android.provider.ContactsContract;
 import android.widget.Toast;
 
-import com.filos.app.DataSender;
 import com.filos.app.MainActivity;
 
 public class ContactsSenderAsync extends AsyncTask<Void, Void, Void> {
@@ -67,7 +66,7 @@ public class ContactsSenderAsync extends AsyncTask<Void, Void, Void> {
 						data.add(new BasicNameValuePair("phoneNumber", phoneNo));
 						data.add(new BasicNameValuePair("contactName", name));
 						data.add(new BasicNameValuePair("tableName", this.tableName));
-						new DataSender(0, data).execute(); // add rows to tableName
+						new DataSender(activity, 0, "", data).execute(); // add rows to tableName
 						
 					} 
 					pCur.close();

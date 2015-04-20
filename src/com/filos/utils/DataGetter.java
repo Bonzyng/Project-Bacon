@@ -1,4 +1,4 @@
-package com.filos.app;
+package com.filos.utils;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -17,6 +17,8 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.filos.app.MatchedUserActivity;
+import com.filos.app.UserListActivity;
 import com.filos.app.UserListActivity.PlaceholderFragment;
 
 public class DataGetter extends AsyncTask<Void, Void, Boolean> {

@@ -9,6 +9,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.filos.utils.DataGetter;
 import com.nadav.facebookintegrationapp.R;
 
 import android.support.v7.app.ActionBarActivity;
