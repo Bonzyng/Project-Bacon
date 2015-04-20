@@ -45,6 +45,9 @@ public class MatchedUsersAdapter extends ArrayAdapter<MatchedUser> {
 		
 		view = inflater.inflate(R.layout.filos_results_user_item, parent, false);
 		
+		//Gets the matched user profile picture
+		
+		String url = "https://graph.facebook.com/" + " " + "/picture?type=large";
 		ImageView userFacebookPic = (ImageView) view.findViewById(R.id.user_profile_pic);
 		Picasso.with(context)
 		.load("https://graph.facebook.com/10205079633206382/picture?type=large")
