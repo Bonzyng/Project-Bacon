@@ -14,7 +14,7 @@
         android:layout_marginLeft="34.67dp"
         android:layout_marginRight="34.67dp"
         android:layout_weight="54"
-        android:background="#CFFFFFFF"
+        android:background="@color/semi_trans_white"
         android:gravity="center"
         android:weightSum="100" >
         
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/splash_welcome_message"
-            android:textColor="#707173"
+            android:textColor="@color/welcome_text_gray"
             android:textStyle="bold"
             android:layout_gravity="center"/>
 
@@ -45,10 +45,5 @@
             fb:login_text="@string/sign_in_fb"
             fb:logout_text="Logout!" />
     </LinearLayout>
-
-    <!--  
-    We can change the text and style of the login button!
-    -->
-  
 
 </LinearLayout>
