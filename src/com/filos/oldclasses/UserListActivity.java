@@ -1,4 +1,4 @@
-package com.filos.app;
+package com.filos.oldclasses;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,8 +9,9 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.filos.app.MatchedUserActivity;
 import com.filos.utils.DataGetter;
-import com.nadav.facebookintegrationapp.R;
+import com.filos.app.R;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -85,6 +86,8 @@ public class UserListActivity extends FragmentActivity {
 
             return rootView;
         }
+        
+        
 		public void setDataFromServer(JSONArray users) {
 			try {
 		        // create the grid item mapping

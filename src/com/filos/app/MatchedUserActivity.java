@@ -11,7 +11,7 @@ import org.json.JSONObject;
 
 import com.filos.utils.DataGetter;
 import com.filos.utils.Matcher;
-import com.nadav.facebookintegrationapp.R;
+//import com.nadav.facebookintegrationapp.R;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;

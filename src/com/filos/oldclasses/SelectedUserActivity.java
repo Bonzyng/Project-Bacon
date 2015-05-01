@@ -1,9 +1,9 @@
-package com.filos.app;
+package com.filos.oldclasses;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.nadav.facebookintegrationapp.R;
+import com.filos.app.R;
 
 import android.app.Activity;
 import android.content.Intent;

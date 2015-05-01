@@ -81,7 +81,6 @@ public class Matcher {
 		}
 	}
 
-
 	protected void findMatchedUserMutualFriends(MatchedUser matchedUser) {
 		// TODO Send a GraphAPI request similar to that in PickerActivity	
 	}

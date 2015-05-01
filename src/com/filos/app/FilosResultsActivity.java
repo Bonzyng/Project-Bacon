@@ -14,7 +14,7 @@ import android.widget.ListView;
 
 import com.filos.utils.MatchedUsersAdapter;
 import com.filos.utils.Matcher;
-import com.nadav.facebookintegrationapp.R;
+//import com.nadav.facebookintegrationapp.R;
 
 public class FilosResultsActivity extends Activity {
 	private ListView mMatchedContacts;

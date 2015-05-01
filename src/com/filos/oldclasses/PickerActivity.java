@@ -1,4 +1,4 @@
-package com.filos.app;
+package com.filos.oldclasses;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import com.facebook.model.GraphObject;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.FriendPickerFragment;
 import com.facebook.widget.PickerFragment;
-import com.nadav.facebookintegrationapp.R;
+import com.filos.app.R;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;

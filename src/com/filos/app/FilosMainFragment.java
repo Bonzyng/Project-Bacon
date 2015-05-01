@@ -25,7 +25,8 @@ import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.ProfilePictureView;
-import com.nadav.facebookintegrationapp.R;
+import com.filos.oldclasses.UserListActivity;
+//import com.filos.app.R;
 
 /*
  * TODO: Turn this into the main app screen, with the scan button and everything.
@@ -39,7 +40,7 @@ public class FilosMainFragment extends Fragment {
 	private String user_ID;
 	
 	private ListView listView;
-	private List<BaseListElement> listElements;
+//	private List<BaseListElement> listElements;
 	
 	private UiLifecycleHelper uiHelper;
 	private Session.StatusCallback callback = new Session.StatusCallback() {

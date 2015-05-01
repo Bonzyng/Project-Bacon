@@ -3,7 +3,7 @@ package com.filos.utils;
 import java.util.ArrayList;
 
 
-import com.nadav.facebookintegrationapp.R;
+import com.filos.app.R;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;

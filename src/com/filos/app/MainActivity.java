@@ -26,7 +26,7 @@ import com.facebook.model.GraphUser;
 import com.filos.utils.ContactsSenderAsync;
 import com.filos.utils.DataSender;
 import com.filos.utils.Matcher;
-import com.nadav.facebookintegrationapp.R;
+//import com.nadav.facebookintegrationapp.R;
 
 public class MainActivity extends FragmentActivity {
 	private static final String TAG = "MainActivity";

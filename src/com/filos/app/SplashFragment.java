@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.facebook.Session;
 import com.facebook.widget.LoginButton;
-import com.nadav.facebookintegrationapp.R;
+//import com.nadav.facebookintegrationapp.R;
 
 public class SplashFragment extends Fragment {
 
