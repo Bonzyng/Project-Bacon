@@ -1,15 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
-	<ListView 
-	    android:id="@+id/expanded_contacts"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_marginLeft="15dp"
-	    android:layout_marginRight="15dp"
-	    android:divider="@color/opaque_white"
-	    android:dividerHeight="0.5dp" ></ListView>
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/semi_trans_gray"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:weightSum="100"
+    android:onClick="dismissPopup" >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="24" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="41"
+            android:layout_marginLeft="78dp"
+            android:layout_marginRight="78dp"
+            android:orientation="vertical"
+            android:weightSum="100" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="33.5"
+                android:background="@color/filos_blue"
+                android:orientation="horizontal"
+                android:weightSum="100" >
+
+                <ImageView
+                    android:id="@+id/popup_user_profile_pic"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="30"
+                    android:contentDescription="@string/result_user_profile_pic"
+                    android:padding="3dp" />
+
+                <TextView
+                    android:id="@+id/popup_user_profile_name"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="70"
+                    android:textColor="@color/filos_logo_text_color"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="67.5"
+                android:background="@color/opaque_white"
+                android:orientation="vertical"
+                android:padding="5dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="26.5dp"
+                    android:text="@string/filos_contacts_in_common"
+                    android:textColor="@color/filos_logo_text_color"
+                    android:textSize="15sp" />
+
+                <ListView
+                    android:id="@+id/popup_shared_contacts_list_expanded"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginRight="14dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/list_item_gray"
+                    android:dividerHeight="0dp" />
+            </LinearLayout>
+        </LinearLayout>
+
 </LinearLayout>

@@ -2,6 +2,9 @@
 <resources>
     <color name="opaque_white">#FFFFFF</color>
     <color name="semi_trans_white">#CFFFFFFF</color>
+    <color name="semi_trans_gray">#CFA6A6A6</color>
     <color name="welcome_text_gray">#707173</color>
     <color name="list_item_gray">#D9DADC</color>
+    <color name="filos_blue">#6EC8DF</color>
+    <color name="filos_logo_text_color">#707173</color>
 </resources>

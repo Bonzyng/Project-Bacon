@@ -5,14 +5,15 @@ import java.util.ArrayList;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -23,7 +24,6 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
-import com.filos.utils.ContactsSenderAsync;
 import com.filos.utils.DataSender;
 import com.filos.utils.Matcher;
 //import com.nadav.facebookintegrationapp.R;
@@ -69,6 +69,13 @@ public class MainActivity extends FragmentActivity {
 	    
 	    setContentView(R.layout.activity_main);
 	    
+	    ActionBar bar = getActionBar();
+	    bar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.filos_blue)));
+		bar.setTitle("");
+		bar.setIcon(R.drawable.ic_launcher);
+		bar.hide();
+	    
+	    
 	    FragmentManager fm = getSupportFragmentManager();
 	    fragments[SPLASH] = fm.findFragmentById(R.id.splashFragment);
 	    fragments[MAIN_PRE_SCAN] = fm.findFragmentById(R.id.selectionFragment);
@@ -88,8 +95,10 @@ public class MainActivity extends FragmentActivity {
 		for (int i = 0; i < fragments.length; i++) {
 			if (i == fragmentIndex) {
 				if (i == MAIN_PRE_SCAN) {
-					// TODO: Add call to ContactsSenderAsync
+					// TODO: Add call to ContactsSenderAsync	
 					AddNewUserAndSendContacts();
+					ActionBar bar = getActionBar();
+					bar.show();
 				}
 				transaction.show(fragments[i]);
 			} else {
