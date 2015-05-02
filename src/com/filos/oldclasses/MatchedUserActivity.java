@@ -1,4 +1,4 @@
-package com.filos.app;
+package com.filos.oldclasses;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,9 +9,14 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.filos.app.R;
+import com.filos.app.R.id;
+import com.filos.app.R.layout;
+import com.filos.app.R.menu;
 import com.filos.utils.DataGetter;
 import com.filos.utils.Matcher;
 //import com.nadav.facebookintegrationapp.R;
+
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;

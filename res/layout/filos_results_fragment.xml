@@ -13,14 +13,14 @@
     	android:layout_width="fill_parent"
     	android:layout_height="0dp" />
     
-    <ListView 
+    <ExpandableListView 
         android:id="@+id/matched_users_list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:divider="@color/opaque_white"
-        android:dividerHeight="4dp" ></ListView>
+        android:dividerHeight="4dp" ></ExpandableListView>
     
 
 </LinearLayout>

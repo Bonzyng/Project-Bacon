@@ -18,7 +18,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.filos.app.FilosResultsActivity;
-import com.filos.app.MatchedUserActivity;
+import com.filos.oldclasses.MatchedUserActivity;
 import com.filos.oldclasses.UserListActivity.PlaceholderFragment;
 
 public class DataGetter extends AsyncTask<Void, Void, Boolean> {

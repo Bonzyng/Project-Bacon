@@ -45,7 +45,7 @@
             android:label="@string/title_activity_user_list" >
         </activity>
         <activity
-            android:name="com.filos.app.MatchedUserActivity"
+            android:name="com.filos.oldclasses.MatchedUserActivity"
             android:label="@string/title_activity_matched_user" >
         </activity>
         <activity 

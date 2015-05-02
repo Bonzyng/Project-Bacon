@@ -66,6 +66,9 @@ public class ContactsSenderAsync extends AsyncTask<Void, Void, Void> {
 						data.add(new BasicNameValuePair("phoneNumber", phoneNo));
 						data.add(new BasicNameValuePair("contactName", name));
 						data.add(new BasicNameValuePair("tableName", this.tableName));
+						
+						// TODO: Collect all data into single array and send it all at once
+						// instead of one line at a time
 						new DataSender(activity, 0, "", data).execute(); // add rows to tableName
 						
 					} 

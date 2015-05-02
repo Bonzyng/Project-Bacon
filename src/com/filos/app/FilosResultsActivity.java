@@ -3,21 +3,13 @@ package com.filos.app;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.WebView.FindListener;
-import android.widget.ListView;
+import android.widget.ExpandableListView;
 
 import com.filos.utils.MatchedUsersAdapter;
 import com.filos.utils.Matcher;
-//import com.nadav.facebookintegrationapp.R;
 
 public class FilosResultsActivity extends Activity {
-	private ListView mMatchedContacts;
+	private ExpandableListView mMatchedContacts;
 	public ProgressDialog pd;
 	private Matcher mMatcher;
 	
@@ -28,7 +20,7 @@ public class FilosResultsActivity extends Activity {
 		
 		pd = ProgressDialog.show(this, "Working...", "Matching contacts...", true, false);
 		
-		mMatchedContacts = (ListView) findViewById(R.id.matched_users_list);
+		mMatchedContacts = (ExpandableListView) findViewById(R.id.matched_users_list);
 		Bundle bundle = getIntent().getExtras();
 
 		mMatcher = new Matcher(bundle.get("userId").toString(), this);
