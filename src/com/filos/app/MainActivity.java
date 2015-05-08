@@ -299,6 +299,11 @@ public class MainActivity extends FragmentActivity {
 		intent.putExtra("userId", userId);
 		
 		startActivity(intent);
+		/*
+		 * TODO: Add finish() here after I add a scan functionality to ResultsActivity.
+		 * Also ensure that a future Logout button will re-start MainActivity to show
+		 * the login screen 
+		 */
 	}
 	
 	@Override

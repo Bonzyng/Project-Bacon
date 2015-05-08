@@ -134,6 +134,12 @@ public class PickerActivity extends FragmentActivity {
 		String userId = "/" + user.getId().toString();
 		final String userName = user.getName();
 		//Log.i(TAG, userId);
+		
+		/*
+		 * *************************************************************************
+		 * ********************  REQUEST USER MUTUAL FRIENDS ***********************
+		 * ************************************************************************* 
+		 */
 		Bundle params = new Bundle();
 		params.putString("fields", "context.fields(mutual_friends)");
 		

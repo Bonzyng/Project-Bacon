@@ -1,6 +1,7 @@
 package com.filos.utils;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
@@ -17,11 +18,15 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.filos.app.FilosResultsActivity;
 import com.filos.oldclasses.MatchedUserActivity;
 import com.filos.oldclasses.UserListActivity.PlaceholderFragment;
 
 public class DataGetter extends AsyncTask<Void, Void, Boolean> {
+	
+	// Request codes to send the HTTP request to the matching php page
+	private static final int GET_ALL_USERS = 0;
+	private static final int GET_USER_ID = 1;
+	private static final int MATCH_TWO_USERS = 2;
 
 	// url to update user status
 	private String url;
@@ -45,11 +50,11 @@ public class DataGetter extends AsyncTask<Void, Void, Boolean> {
 
 
 	public DataGetter(int requestCode, Matcher caller, MatchedUser matchedUser, int index, List<NameValuePair> params) {
-		if (requestCode == 0) {
+		if (requestCode == GET_ALL_USERS) {
 			url = urlGetUsers;
-		} else if (requestCode == 1) {
+		} else if (requestCode == GET_USER_ID) {
 			url = urlGetUserId;
-		} else if (requestCode == 2) {
+		} else if (requestCode == MATCH_TWO_USERS) {
 			url = urlMatchContacts;
 		}
 		
@@ -62,11 +67,11 @@ public class DataGetter extends AsyncTask<Void, Void, Boolean> {
 	}
 	
 	public DataGetter(int requestCode, PlaceholderFragment caller, List<NameValuePair> params) {
-		if (requestCode == 0) {
+		if (requestCode == GET_ALL_USERS) {
 			url = urlGetUsers;
-		} else if (requestCode == 1) {
+		} else if (requestCode == GET_USER_ID) {
 			url = urlGetUserId;
-		} else if (requestCode == 2) {
+		} else if (requestCode == MATCH_TWO_USERS) {
 			url = urlMatchContacts;
 		}
 		
@@ -76,11 +81,11 @@ public class DataGetter extends AsyncTask<Void, Void, Boolean> {
 	}
 	
 	public DataGetter(int requestCode, MatchedUserActivity caller, List<NameValuePair> params) {
-		if (requestCode == 0) {
+		if (requestCode == GET_ALL_USERS) {
 			url = urlGetUsers;
-		} else if (requestCode == 1) {
+		} else if (requestCode == GET_USER_ID) {
 			url = urlGetUserId;
-		} else if (requestCode == 2) {
+		} else if (requestCode == MATCH_TWO_USERS) {
 			url = urlMatchContacts;
 		}
 		
@@ -97,6 +102,7 @@ public class DataGetter extends AsyncTask<Void, Void, Boolean> {
 	@Override
 	protected Boolean doInBackground(Void... params) {
 		boolean isSendOK = false;
+		BufferedReader reader = null;
 		try {
 
 			// create http request
@@ -112,7 +118,7 @@ public class DataGetter extends AsyncTask<Void, Void, Boolean> {
 			HttpEntity httpEntity = httpResponse.getEntity();
 			is = httpEntity.getContent();
 
-			BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf-8"), 8);
+			reader = new BufferedReader(new InputStreamReader(is, "utf-8"), 8);
 			StringBuilder sb = new StringBuilder();
 			line = reader.readLine();
 			while (line != null) {
@@ -120,7 +126,7 @@ public class DataGetter extends AsyncTask<Void, Void, Boolean> {
 				line = reader.readLine();
 			}
 
-			is.close();
+			
 			json = sb.toString();
 
 			// try parse the string to a JSON object
@@ -131,14 +137,27 @@ public class DataGetter extends AsyncTask<Void, Void, Boolean> {
 
 			if (success == 1) {
 				isSendOK = true;
-//				Log.d("MiLAB Class", "Data sender succeed: " + json.toString());
 			} else {
 				// failed to update product
-//				Log.d("MiLAB Class", "Data sender failed" + json.toString());
 			}
 		} catch (Exception e) {
 			Log.d("MiLAB Class", "Data sender failed");
 			e.printStackTrace();
+		
+		// Close the streams securely
+		} finally {
+			try {
+				if (is != null) {
+					is.close();	
+				}
+				if (reader != null) {
+					reader.close();
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 //		Log.i("In doInBackground", "Response is: " + json.toString());
 		return isSendOK;
@@ -149,12 +168,12 @@ public class DataGetter extends AsyncTask<Void, Void, Boolean> {
 		if (isSendOK) {
 			try {
 				if (mMatcher != null) {
-					if (requestCode == 1) {
+					if (requestCode == GET_USER_ID) {
 						mMatcher.matchContacts(jObj.getJSONArray("users"), mMatchedUser, index);
-					} else if (requestCode == 2) {
+					} else if (requestCode == MATCH_TWO_USERS) {
 						mMatcher.populateMatchedUserSharedContacts(jObj.getJSONArray("users"), mMatchedUser, index);
 						mMatcher.findMatchedUserMutualFriends(mMatchedUser);
-					} else if (requestCode == 0) {
+					} else if (requestCode == GET_ALL_USERS) {
 						mMatcher.matchAllUsers(jObj.getJSONArray("users"));
 					}
 				// TODO: Still need all this?
@@ -162,9 +181,9 @@ public class DataGetter extends AsyncTask<Void, Void, Boolean> {
 					fragmentCaller.setDataFromServer(jObj.getJSONArray("users"));
 
 				} else if (activityCaller != null) {
-					if (requestCode == 1) {
+					if (requestCode == GET_USER_ID) {
 //						activityCaller.matchContacts(jObj.getJSONArray("users"));
-					} else if (requestCode == 2) {
+					} else if (requestCode == MATCH_TWO_USERS) {
 						activityCaller.setDataFromServer(jObj.getJSONArray("users"));
 					}			
 				}
