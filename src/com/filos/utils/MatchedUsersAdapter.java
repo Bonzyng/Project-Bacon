@@ -7,14 +7,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.filos.app.R;
@@ -216,7 +213,8 @@ public class MatchedUsersAdapter extends ArrayAdapter<MatchedUser> {
 			.into(viewHolder.userFacebookPic);
 		
 		viewHolder.userFacebookName.setText(matchedUser.getUserName());
-		viewHolder.numOfMatched.setText(Integer.toString(matchedUser.getNumOfSharedContacts()));
+		int numOfMatched = matchedUser.getNumOfMutualFriends() + matchedUser.getNumOfSharedContacts();
+		viewHolder.numOfMatched.setText(Integer.toString(numOfMatched));
 		
 		return convertView;
 	}

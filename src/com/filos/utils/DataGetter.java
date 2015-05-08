@@ -172,7 +172,7 @@ public class DataGetter extends AsyncTask<Void, Void, Boolean> {
 						mMatcher.matchContacts(jObj.getJSONArray("users"), mMatchedUser, index);
 					} else if (requestCode == MATCH_TWO_USERS) {
 						mMatcher.populateMatchedUserSharedContacts(jObj.getJSONArray("users"), mMatchedUser, index);
-						mMatcher.findMatchedUserMutualFriends(mMatchedUser);
+						mMatcher.findMatchedUserMutualFriends(mMatchedUser, index);
 					} else if (requestCode == GET_ALL_USERS) {
 						mMatcher.matchAllUsers(jObj.getJSONArray("users"));
 					}

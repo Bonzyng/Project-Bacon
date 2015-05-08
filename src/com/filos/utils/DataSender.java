@@ -105,7 +105,6 @@ public class DataSender extends AsyncTask<Void, Void, Boolean> {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return isSendOK;
 	}
 
@@ -113,11 +112,6 @@ public class DataSender extends AsyncTask<Void, Void, Boolean> {
 	protected void onPostExecute(Boolean isSendOK) {
 		if (isSendOK && mRequestCode == CREATE_TABLE) {
 			new ContactsSenderAsync(mUserFacebookId, mCallerActivity).execute();
-		} else {
-//			CharSequence text = "Send Data Faild!";
-//			int duration = Toast.LENGTH_SHORT;
-//			Toast toast = Toast.makeText(parentActivity, text, duration);
-//			toast.show();
 		}
 	}
 
