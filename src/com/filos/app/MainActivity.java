@@ -6,9 +6,13 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Location;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -24,10 +28,17 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
+import com.filos.service.FilosLocationService;
 import com.filos.utils.DataSender;
 import com.filos.utils.Matcher;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import com.google.android.gms.location.LocationServices;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements
+ConnectionCallbacks, OnConnectionFailedListener {
 	
 	private static String userFacebookId; // Will hold this user's facebook Id
 	
@@ -55,6 +66,8 @@ public class MainActivity extends FragmentActivity {
 				}
 			};
 
+	private GoogleApiClient mGoogleApiClient;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -70,6 +83,10 @@ public class MainActivity extends FragmentActivity {
 		bar.setIcon(R.drawable.ic_launcher);
 		bar.hide();
 	    
+		Intent intent = new Intent();
+		intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+		intent.setAction("com.filos.service.FilosConnectivityReceiver");
+		sendBroadcast(intent);
 	    
 	    FragmentManager fm = getSupportFragmentManager();
 	    fragments[SPLASH] = fm.findFragmentById(R.id.splashFragment);
@@ -208,6 +225,7 @@ public class MainActivity extends FragmentActivity {
 //	}	
 	
 	private void AddNewUserAndSendContacts() {
+//		Log.d("AddNewUserAndContacts", "I'm in it");
 		final Session session = Session.getActiveSession();
 	    if (session != null && session.isOpened()) {
 	        // If the session is open, make an API call to get user data
@@ -223,6 +241,11 @@ public class MainActivity extends FragmentActivity {
 	                        userProfileName = user.getName(); //user's profile name
 	                        
 	                		userFacebookId = "s" + userId; // Table name can't start with digit
+	                		
+	                		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+	                		SharedPreferences.Editor editor = sharedPref.edit();
+	                		editor.putString("userFacebookId", userFacebookId);
+	                		editor.commit();
 
 	                		// Create a new table for this user's contact list
 	                		ArrayList<NameValuePair> contactsData = new ArrayList<NameValuePair>();
@@ -235,7 +258,7 @@ public class MainActivity extends FragmentActivity {
 	                		userData.add(new BasicNameValuePair("userProfileName", userProfileName));
 	                		new DataSender(MainActivity.this, 2, userFacebookId, userData).execute(); // 2 => add user to user table
 	                		
-	                    }   
+	                    }
 	                }   
 				}   
 	        }); 
@@ -262,5 +285,40 @@ public class MainActivity extends FragmentActivity {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main, menu);
 		return super.onCreateOptionsMenu(menu);
+	}
+	
+	protected synchronized void buildGoogleApiClient() {
+	    mGoogleApiClient = new GoogleApiClient.Builder(this)
+	        .addConnectionCallbacks(this)
+	        .addOnConnectionFailedListener(this)
+	        .addApi(LocationServices.API)
+	        .build();
+	}
+
+	@Override
+	public void onConnectionFailed(ConnectionResult arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onConnected(Bundle arg0) {
+		Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+				mGoogleApiClient);
+		if (mLastLocation != null) {
+			ArrayList<NameValuePair> locationData = new ArrayList<NameValuePair>();
+			locationData.add(new BasicNameValuePair("userFacebookId", userFacebookId));
+			locationData.add(new BasicNameValuePair("gpsLat", String.valueOf(mLastLocation.getLatitude())));
+			locationData.add(new BasicNameValuePair("gpsLong", String.valueOf(mLastLocation.getLongitude())));
+    		new DataSender(MainActivity.this, 3, null, locationData).execute(); // -> update user location
+//			String mLatitudeText = String.valueOf(mLastLocation.getLatitude());
+//			String mLongitudeText = String.valueOf(mLastLocation.getLongitude());
+		}
+	}
+
+	@Override
+	public void onConnectionSuspended(int arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }

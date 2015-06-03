@@ -17,14 +17,12 @@ import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.model.GraphObject;
 import com.filos.app.FilosResultsActivity;
-import com.filos.app.MainActivity;
 
 public class Matcher {
 	
 	private static final int CONTACTS_MATCH = 0;
 	private static final int MUTUAL_FRIENDS_MATCH = 1;
 	
-	public MainActivity mCallerActivity;
 	private String mUserId;
 	private String mOtherUserId;
 	private ArrayList<MatchedUser> mMatchedUsers;
@@ -44,9 +42,7 @@ public class Matcher {
 	 * Each matching sequence calls this method at the end. Once all matching
 	 * sequences are complete, the adapter will be populated
 	 */
-	public void checkMatchComplete(int matchCode) {
-
-		
+	public void checkMatchComplete(int matchCode) {		
 		if (matchCode == CONTACTS_MATCH) {
 			contactsMatchComplete = true;
 		} else if (matchCode == MUTUAL_FRIENDS_MATCH) {
@@ -54,6 +50,7 @@ public class Matcher {
 		}
 		
 		if (contactsMatchComplete && mutualFriendsMatchComplete) {
+//			for (MatchedUser user : )
 			mCaller.setAdapter();
 		}
 	}
@@ -92,12 +89,9 @@ public class Matcher {
 		}
 	}
 	
-
-	
 	public ArrayList<MatchedUser> getMatchedUsers() {
 		return mMatchedUsers;
-	}
-	
+	}	
 	
 	// TODO: Receive the matched array and return the array sorted by number of mutual contacts
 	public void sortMatchedUsers(ArrayList<MatchedUser> matchedUsers) {}

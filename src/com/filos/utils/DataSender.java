@@ -24,11 +24,13 @@ public class DataSender extends AsyncTask<Void, Void, Boolean> {
 	private final String urlSendPhoneNumber = "http://liron.milab.idc.ac.il/php/bacon_send_phonenumber.php";
 	private final String urlCreateTable = "http://liron.milab.idc.ac.il/php/bacon_create_new_table.php";
 	private final String urlAddNewUser = "http://liron.milab.idc.ac.il/php/bacon_add_new_user.php";
+	private final String urlUpdateUserLocation = "http://liron.milab.idc.ac.il/php/update_user_location.php";
 	private String url;
 	
 	private static final int SEND_PHONE_CONTACTS = 0;
 	private static final int CREATE_TABLE = 1;
 	private static final int ADD_NEW_USER = 2;
+	private static final int UPDATE_USER_LOCATION = 3;
 	
 	private List<NameValuePair> postParams;
 	private InputStream is = null;
@@ -50,6 +52,8 @@ public class DataSender extends AsyncTask<Void, Void, Boolean> {
 			url = urlCreateTable;
 		} else if (target == ADD_NEW_USER) {
 			url = urlAddNewUser;
+		} else if (target == UPDATE_USER_LOCATION) {
+			url = urlUpdateUserLocation;
 		}
 		mRequestCode = target;
 		mCallerActivity = activity;

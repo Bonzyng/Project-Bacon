@@ -113,7 +113,7 @@ public class DataGetter extends AsyncTask<Void, Void, Boolean> {
 
 			// execute
 			httpResponse = httpClient.execute(httpGet);
-
+			
 			// get response from server and parse it to json
 			HttpEntity httpEntity = httpResponse.getEntity();
 			is = httpEntity.getContent();
