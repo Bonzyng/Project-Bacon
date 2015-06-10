@@ -1,6 +1,7 @@
 package com.filos.utils;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -9,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.facebook.FacebookRequestError;
 import com.facebook.HttpMethod;
@@ -50,7 +52,12 @@ public class Matcher {
 		}
 		
 		if (contactsMatchComplete && mutualFriendsMatchComplete) {
-//			for (MatchedUser user : )
+			for (Iterator<MatchedUser> iterator = mMatchedUsers.iterator(); iterator.hasNext();) {
+				MatchedUser user = iterator.next();
+				if ((user.getNumOfMutualFriends() + user.getNumOfSharedContacts()) == 0) {
+					iterator.remove();
+				}
+			}
 			mCaller.setAdapter();
 		}
 	}
@@ -61,6 +68,7 @@ public class Matcher {
 	public void match() {
 		ArrayList<NameValuePair> userIdAsArray = new ArrayList<NameValuePair>();
 		userIdAsArray.add(new BasicNameValuePair("User_ID", mUserId));
+		
 		new DataGetter(0, this, null, 0, userIdAsArray).execute();
 	}
 	
@@ -71,6 +79,7 @@ public class Matcher {
 		
 		String[] allUsers = new String[allUsersJson.length()];
 		numOfUsers = allUsers.length;
+		
 		for(int i = 0; i < numOfUsers; i++) {
 			try {
 				JSONObject row = allUsersJson.getJSONObject(i);
@@ -223,5 +232,9 @@ public class Matcher {
 		if (index == numOfUsers - 1) {
 			checkMatchComplete(MUTUAL_FRIENDS_MATCH);
 		}
+	}
+	
+	protected void returnNoResults() {
+		mCaller.noUsersNearby();
 	}
 }

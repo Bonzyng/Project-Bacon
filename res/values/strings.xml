@@ -28,5 +28,9 @@
     
     <string name="filos_friends_in_common">Friends in common</string>
     <string name="filos_contacts_in_common">Contacts in common</string>
+    
+    <string name="filos_popup_no_users_nearby">Sorry, no users nearby</string>
+    <string name="filos_try_again">Try again soon</string>
+    <string name="filos_ok">Ok</string>
 
 </resources>

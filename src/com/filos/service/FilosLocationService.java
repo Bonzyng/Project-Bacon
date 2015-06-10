@@ -25,7 +25,7 @@ public class FilosLocationService extends Service {
 	private static final String TAG = "FilosLocationService";
 	private LocationManager mLocationManager = null;
 	private static final int LOCATION_INTERVAL = 5 * 60 * 1000;
-	private static final float LOCATION_DISTANCE = 10f;
+	private static final float LOCATION_DISTANCE = 150f;
 	
 	private class LocationListener implements android.location.LocationListener {
 		

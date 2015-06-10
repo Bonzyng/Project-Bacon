@@ -17,7 +17,9 @@ import org.json.JSONObject;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.filos.app.FilosResultsActivity;
 import com.filos.oldclasses.MatchedUserActivity;
 import com.filos.oldclasses.UserListActivity.PlaceholderFragment;
 
@@ -191,10 +193,11 @@ public class DataGetter extends AsyncTask<Void, Void, Boolean> {
 				e.printStackTrace();
 			}
 		} else {
-//			CharSequence text = "Get Data Faild!";
-//			int duration = Toast.LENGTH_SHORT;
-//			Toast toast = Toast.makeText(parentCaller, text, duration);
-//			toast.show();
+			if (mMatcher != null) {
+				if (requestCode == GET_ALL_USERS) {
+					mMatcher.returnNoResults();
+				}
+			}
 		}
 	}
 

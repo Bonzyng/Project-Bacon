@@ -7,9 +7,12 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.ContentUris;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -19,7 +22,9 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageButton;
@@ -48,6 +53,7 @@ public class FilosResultsActivity extends Activity {
 	public ProgressDialog pd;
 	private Matcher mMatcher;
 	private PopupWindow popupWindow;
+	private AlertDialog dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -143,6 +149,25 @@ public class FilosResultsActivity extends Activity {
 		pd.dismiss();
 		MatchedUsersAdapter adapter = new MatchedUsersAdapter(this, mMatcher.getMatchedUsers());
 		mMatchedContacts.setAdapter(adapter);
+	}
+	
+	public void noUsersNearby() {
+		pd.dismiss();
+		View alertView = getLayoutInflater().inflate(R.layout.filos_popup_no_users_nearby, null);
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setView(alertView);
+		
+		dialog = builder.create();
+		dialog.show();
+		
+	}
+	
+	// Alert Dialog's OK button calls this
+	public void onBackPressed(View view) {
+		if (dialog.isShowing()) {
+			dialog.dismiss();
+		}
+		onBackPressed();
 	}
 
 	@Override
