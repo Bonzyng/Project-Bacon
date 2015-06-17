@@ -63,7 +63,7 @@ public class FilosResultsActivity extends Activity {
 		ActionBar bar = getActionBar();
 		bar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.filos_blue)));
 		bar.setTitle("");
-		bar.setIcon(R.drawable.ic_launcher);
+		bar.setIcon(R.drawable.shadowed_icon);
 
 		pd = ProgressDialog.show(this, "Working...", "Matching contacts...", true, false);
 		pd.setCancelable(true);

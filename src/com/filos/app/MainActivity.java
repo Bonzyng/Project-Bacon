@@ -6,7 +6,6 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import android.app.ActionBar;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
@@ -28,7 +27,6 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
-import com.filos.service.FilosLocationService;
 import com.filos.utils.DataSender;
 import com.filos.utils.Matcher;
 import com.google.android.gms.common.ConnectionResult;
@@ -80,7 +78,7 @@ ConnectionCallbacks, OnConnectionFailedListener {
 	    ActionBar bar = getActionBar();
 	    bar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.filos_blue)));
 		bar.setTitle("");
-		bar.setIcon(R.drawable.ic_launcher);
+		bar.setIcon(R.drawable.shadowed_icon);
 		bar.hide();
 	    
 		Intent intent = new Intent();

@@ -26,10 +26,10 @@ public class ContactsSenderAsync extends AsyncTask<Void, Void, Void> {
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		CharSequence text = "Sending contacts to DB";
-		int duration = Toast.LENGTH_SHORT;
-		Toast toast = Toast.makeText(activity, text, duration);
-		toast.show();
+//		CharSequence text = "Sending contacts to DB";
+//		int duration = Toast.LENGTH_SHORT;
+//		Toast toast = Toast.makeText(activity, text, duration);
+//		toast.show();
 	}
 	
 	@Override
